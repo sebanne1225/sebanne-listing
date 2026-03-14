@@ -38,6 +38,22 @@ const setTheme = () => {
   }
 }
 
+const accentButtonTemporarily = (button) => {
+  const previousAppearance = button.getAttribute('appearance') ?? 'neutral';
+  button.appearance = 'accent';
+  window.setTimeout(() => {
+    button.appearance = previousAppearance;
+  }, 1000);
+};
+
+const copyFieldValue = (fieldId, button) => {
+  const field = document.getElementById(fieldId);
+  if (!field || !button) return;
+  field.select();
+  navigator.clipboard.writeText(field.value);
+  accentButtonTemporarily(button);
+};
+
 (() => {
   setTheme();
 
@@ -49,7 +65,7 @@ const setTheme = () => {
 
   const searchInput = document.getElementById('searchInput');
   searchInput.addEventListener('input', ({ target: { value = '' }}) => {
-    const items = packageGrid.querySelectorAll('fluent-data-grid-row[row-type="default"]');
+    const items = packageGrid.querySelectorAll('fluent-data-grid-row[data-package-id]');
     items.forEach(item => {
       if (value === '') {
         item.style.display = 'grid';
@@ -77,58 +93,54 @@ const setTheme = () => {
   });
 
   const vccListingInfoUrlFieldCopy = document.getElementById('vccListingInfoUrlFieldCopy');
-  vccListingInfoUrlFieldCopy.addEventListener('click', () => {
-    const vccUrlField = document.getElementById('vccListingInfoUrlField');
-    vccUrlField.select();
-    navigator.clipboard.writeText(vccUrlField.value);
-    vccUrlFieldCopy.appearance = 'accent';
-    setTimeout(() => {
-      vccUrlFieldCopy.appearance = 'neutral';
-    }, 1000);
+  vccListingInfoUrlFieldCopy.addEventListener('click', ({ currentTarget }) => {
+    copyFieldValue('vccListingInfoUrlField', currentTarget);
   });
 
   const vccAddRepoButton = document.getElementById('vccAddRepoButton');
   vccAddRepoButton.addEventListener('click', () => window.location.assign(`vcc://vpm/addRepo?url=${encodeURIComponent(LISTING_URL)}`));
 
   const vccUrlFieldCopy = document.getElementById('vccUrlFieldCopy');
-  vccUrlFieldCopy.addEventListener('click', () => {
-    const vccUrlField = document.getElementById('vccUrlField');
-    vccUrlField.select();
-    navigator.clipboard.writeText(vccUrlField.value);
-    vccUrlFieldCopy.appearance = 'accent';
-    setTimeout(() => {
-      vccUrlFieldCopy.appearance = 'neutral';
-    }, 1000);
+  vccUrlFieldCopy.addEventListener('click', ({ currentTarget }) => {
+    copyFieldValue('vccUrlField', currentTarget);
   });
 
   const rowMoreMenu = document.getElementById('rowMoreMenu');
+  const rowMoreMenuDownload = document.getElementById('rowMoreMenuDownload');
+  let activeRowMenuPackageUrl = null;
+
   const hideRowMoreMenu = e => {
     if (rowMoreMenu.contains(e.target)) return;
     document.removeEventListener('click', hideRowMoreMenu);
+    activeRowMenuPackageUrl = null;
     rowMoreMenu.hidden = true;
   }
+
+  rowMoreMenuDownload.addEventListener('click', () => {
+    if (!activeRowMenuPackageUrl) return;
+    window.open(activeRowMenuPackageUrl, '_blank');
+    hideRowMoreMenu({ target: document.body });
+  });
 
   const rowMenuButtons = document.querySelectorAll('.rowMenuButton');
   rowMenuButtons.forEach(button => {
     button.addEventListener('click', e => {
-      if (rowMoreMenu?.hidden) {
-        rowMoreMenu.style.top = `${e.clientY + e.target.clientHeight}px`;
-        rowMoreMenu.style.left = `${e.clientX - 120}px`;
-        rowMoreMenu.hidden = false;
+      e.stopPropagation();
 
-        const downloadLink = rowMoreMenu.querySelector('#rowMoreMenuDownload');
-        const downloadListener = () => {
-          window.open(e?.target?.dataset?.packageUrl, '_blank');
-        }
-        downloadLink.addEventListener('change', () => {
-          downloadListener();
-          downloadLink.removeEventListener('change', downloadListener);
-        });
+      const menuButton = e.currentTarget;
+      const packageUrl = menuButton.dataset?.packageUrl;
+      if (!packageUrl) return;
 
-        setTimeout(() => {
-          document.addEventListener('click', hideRowMoreMenu);
-        }, 1);
-      }
+      const rect = menuButton.getBoundingClientRect();
+      const menuWidth = 180;
+
+      activeRowMenuPackageUrl = packageUrl;
+      rowMoreMenu.style.top = `${window.scrollY + rect.bottom + 4}px`;
+      rowMoreMenu.style.left = `${Math.max(window.scrollX + 8, window.scrollX + rect.right - menuWidth)}px`;
+      rowMoreMenu.hidden = false;
+
+      document.removeEventListener('click', hideRowMoreMenu);
+      document.addEventListener('click', hideRowMoreMenu);
     });
   });
 
@@ -160,8 +172,8 @@ const setTheme = () => {
 
   const rowPackageInfoButton = document.querySelectorAll('.rowPackageInfoButton');
   rowPackageInfoButton.forEach((button) => {
-    button.addEventListener('click', e => {
-      const packageId = e.target.dataset?.packageId;
+    button.addEventListener('click', ({ currentTarget }) => {
+      const packageId = currentTarget.dataset?.packageId;
       const packageInfo = PACKAGES?.[packageId];
       if (!packageInfo) {
         console.error(`Did not find package ${packageId}. Packages available:`, PACKAGES);
@@ -214,14 +226,8 @@ const setTheme = () => {
   });
 
   const packageInfoVccUrlFieldCopy = document.getElementById('packageInfoVccUrlFieldCopy');
-  packageInfoVccUrlFieldCopy.addEventListener('click', () => {
-    const vccUrlField = document.getElementById('packageInfoVccUrlField');
-    vccUrlField.select();
-    navigator.clipboard.writeText(vccUrlField.value);
-    vccUrlFieldCopy.appearance = 'accent';
-    setTimeout(() => {
-      vccUrlFieldCopy.appearance = 'neutral';
-    }, 1000);
+  packageInfoVccUrlFieldCopy.addEventListener('click', ({ currentTarget }) => {
+    copyFieldValue('packageInfoVccUrlField', currentTarget);
   });
 
   const packageInfoListingHelp = document.getElementById('packageInfoListingHelp');

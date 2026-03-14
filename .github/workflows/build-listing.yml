@@ -4,7 +4,15 @@ on:
   workflow_dispatch:
   push:
     branches: main
-    paths: source.json
+    paths:
+      - source.json
+      - README.md
+      - Website/index.html
+      - Website/app.js
+      - Website/styles.css
+      - Website/banner.png
+      - Website/favicon.ico
+      - .github/workflows/build-listing.yml
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:

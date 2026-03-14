@@ -1,15 +1,15 @@
 {
-  "name": "sebanne",
+  "name": "Sebanne VPM Listing",
   "id": "com.sebanne.vpm",
   "url": "https://sebanne1225.github.io/sebanne-listing/index.json",
   "author": {
     "name": "sebanne",
     "url": "https://github.com/sebanne1225"
   },
-  "description": "sebanne's VPM listing",
+  "description": "VRChat向け Unity ツールを VPM / VCC で配布するための Sebanne 用 listing です。",
   "infoLink": {
     "url": "https://github.com/sebanne1225/sebanne-listing",
-    "text": "View on GitHub"
+    "text": "GitHub repository を見る"
   },
   "githubRepos": [
     "sebanne1225/blendshape-clip-fixer"
