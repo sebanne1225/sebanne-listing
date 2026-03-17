@@ -9,6 +9,7 @@ package 本体の repository とは別管理で、GitHub Pages に公開され�
 ## いま入っている package
 
 - `sebanne1225/blendshape-clip-fixer`
+- `sebanne1225/sebanne-skinned-mesh-mirror`
 
 今後 package を追加した場合も、この repository の listing からまとめて参照できるようにします。
 

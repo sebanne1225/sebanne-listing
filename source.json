@@ -12,6 +12,7 @@
     "text": "GitHub repository を見る"
   },
   "githubRepos": [
-    "sebanne1225/blendshape-clip-fixer"
+    "sebanne1225/blendshape-clip-fixer",
+    "sebanne1225/sebanne-skinned-mesh-mirror"
   ]
 }
