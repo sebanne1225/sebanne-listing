@@ -10,6 +10,7 @@ package 本体の repository とは別管理で、GitHub Pages に公開され�
 
 - `sebanne1225/blendshape-clip-fixer`
 - `sebanne1225/sebanne-skinned-mesh-mirror`
+- `sebanne1225/animation-clip-start-delay`
 
 今後 package を追加した場合も、この repository の listing からまとめて参照できるようにします。
 
@@ -27,7 +28,7 @@ VCC の `Settings > Packages > Add Repository` から、次の URL を追加し�
 
 現在は `source.json`、README、Pages 用ファイル、workflow 自身の変更でも再ビルドされるようにしてあります。package を追加・更新する場合は、必要に応じて `source.json` を更新してください。
 
-`Skinned Mesh Mirror` を追加する場合も、まず `source.json` の `githubRepos` を更新してください。
+新しい package を追加する場合も、まず `source.json` の `githubRepos` を更新してください。
 
 ## ライセンス
 
