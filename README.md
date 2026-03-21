@@ -11,6 +11,7 @@ package 本体の repository とは別管理で、GitHub Pages に公開され�
 - `sebanne1225/blendshape-clip-fixer`
 - `sebanne1225/sebanne-skinned-mesh-mirror`
 - `sebanne1225/animation-clip-start-delay`
+- `sebanne1225/avatar-audio-safety-guard`
 
 今後 package を追加した場合も、この repository の listing からまとめて参照できるようにします。
 
