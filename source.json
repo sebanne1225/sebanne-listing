@@ -15,6 +15,7 @@
     "sebanne1225/blendshape-clip-fixer",
     "sebanne1225/sebanne-skinned-mesh-mirror",
     "sebanne1225/animation-clip-start-delay",
-    "sebanne1225/avatar-audio-safety-guard"
+    "sebanne1225/avatar-audio-safety-guard",
+    "sebanne1225/flipbook-material-generator"
   ]
 }
