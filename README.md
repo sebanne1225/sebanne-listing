@@ -13,7 +13,7 @@ package 本体の repository とは別管理で、GitHub Pages に公開され�
 - `sebanne1225/animation-clip-start-delay`
 - `sebanne1225/avatar-audio-safety-guard`
 - `sebanne1225/flipbook-material-generator`
-- `sebanne1225/afk-changer`
+- `sebanne1225/afk-manager`
 
 今後 package を追加した場合も、この repository の listing からまとめて参照できるようにします。
 
